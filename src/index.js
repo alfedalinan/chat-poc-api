@@ -11,7 +11,9 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     context,
-    debug: config.DEBUG === 'true'
+    debug: config.DEBUG === 'true',
+    formatResponse,
+    formatError
 })
 
 server.listen({ port: config.SERVER_PORT })

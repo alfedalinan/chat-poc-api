@@ -30,7 +30,7 @@ describe('User Use Cases', () => {
     it('Get All', async () => {
         const result = await userUseCases.getAll()
         expect(result).toBeTruthy()
-        expect(result.lengt).toBeTruthy()
+        expect(result.length).toBeTruthy()
     })
 
     it('Update', async () => {
@@ -40,7 +40,8 @@ describe('User Use Cases', () => {
             firstName: "Alfeds",
             lastName: "Al",
             username: "alfeds.al",
-            email: "alfeds.al@test.com"
+            email: "alfeds.al@test.com",
+            password: "someKindOfPassword"
         }
 
         const result = await userUseCases.update(id, data)
@@ -58,7 +59,7 @@ describe('User Use Cases', () => {
         const result = await userUseCases.remove(id)
 
         expect(result).toBeTruthy()
-        expect(typeof result).toBe('number')
+        expect(typeof result).toBe('boolean')
 
     })
 })

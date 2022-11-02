@@ -4,7 +4,7 @@ const { errorMessages } = require('../../shared/constants')
 const formatError = (error) => {
     const { message, extensions } = error
     
-    if (extensions.code === 'GRAPHQL_VALIDATION_FAILED') {
+    if (extensions.code === 'GRAPHQL_VALIDATION_FAILED' || extensions.code === 'BAD_USER_INPUT') {
       return {
         message: errorMessages.ERR0002,
         extensions: {
@@ -14,8 +14,29 @@ const formatError = (error) => {
         }
       }
     }
-
-    return error
+    else if (extensions.code === 'UNAUTHENTICATED') {
+      return {
+        message,
+        extensions: {
+          details: message,
+          code: extensions.code,
+          exception: extensions.exception
+        }
+      }
+    }
+    else if (extensions.code === 'GRAPHQL_PARSE_FAILED') {
+      return {
+        message: errorMessages.ERR0003,
+        extensions: {
+          details: message,
+          code: extensions.code,
+          exception: extensions.exception
+        }
+      }
+    }
+    else {
+      return error
+    }
 }
 
 const formatResponse = (response) => {
@@ -35,4 +56,11 @@ const formatResponse = (response) => {
     return response
 }
 
-module.exports = { formatError, formatResponse }
+const formatUseCaseError = (error) => {
+  const { response } = error
+  const { status, statusText } = response
+
+  console.log(response)
+}
+
+module.exports = { formatError, formatResponse, formatUseCaseError }
