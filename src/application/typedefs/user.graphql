@@ -1,0 +1,39 @@
+type User {
+    id: Int
+    username: String!
+    email: String!
+    password: String!
+    firstName: String
+    lastName: String
+}
+
+input UserInput {
+    username: String!
+    email: String!
+    password: String!
+    firstName: String
+    lastName: String
+}
+
+extend type Query {
+    getById(
+        id: Int!
+    ): User
+
+    getAll: [User] 
+}
+
+extend type Mutation {
+    createUser(
+        input: UserInput
+    ): User
+
+    updateUser(
+        id: Int!
+        input: UserInput
+    ): [Int]
+
+    removeUser(
+        id: Int!
+    ): Int
+}
