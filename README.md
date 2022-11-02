@@ -1,4 +1,4 @@
-# CHAT POC API (ict202-api)
+# CHAT POC API (chat-api)
 
 API Gateway for my project chat-poc
 
