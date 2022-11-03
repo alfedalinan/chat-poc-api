@@ -57,10 +57,7 @@ const formatResponse = (response) => {
 }
 
 const formatUseCaseError = (error) => {
-  const { response } = error
-  const { status, statusText } = response
-
-  console.log(response)
+  console.log(JSON.stringify(error, null, 2))
 }
 
 module.exports = { formatError, formatResponse, formatUseCaseError }

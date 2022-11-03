@@ -1,0 +1,51 @@
+type ConversationMember {
+    id: Int
+    conversationId: Int
+    memberId: Int
+    registerId: String
+    unreadMessageCount: Int
+    firstName: String
+    lastName: String
+    email: String
+    username: String
+    isDeleted: Boolean
+}
+
+type Conversation {
+    id: Int
+    name: String
+    userId: Int!
+    userRegister: String!
+    conversationMembers: [ConversationMember]
+}
+
+input ConversationInput {
+    name: String
+    userId: Int!
+    userRegister: String!
+}
+
+extend type Query {
+    getConversationsByUserId(
+        userId: Int
+    ): [Conversation]
+
+    getConversationById(
+        id: Int
+    ): Conversation
+}
+
+extend type Mutation {
+    createConversation(
+        input: ConversationInput!
+    ): Conversation
+
+    updateConversation(
+        id: Int!
+        input: ConversationInput
+    ): [Int]
+
+    removeConversation(
+        id: Int!
+    ): Int
+}
