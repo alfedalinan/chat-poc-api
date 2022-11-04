@@ -1,4 +1,5 @@
 const SocketIO = require('socket.io')
+const { userRegisterUseCases } = require('../../application/use-cases')
 let io
 
 const initializeSocket = (server) => {
@@ -13,11 +14,24 @@ const initializeSocket = (server) => {
     io.on('connection', (socket) => {
         
         socket.on('user.register:send', async (data) => {
-            console.log('the data is: ', data)
-        })
+            let userWithRegister = await userRegisterUseCases.findOneByUserId(data.userId)
 
-        io.emit('message.broadcast:delivered', [1,2,3,4]);
-        io.emit('user.register:ack', { test: 'data' });
+            if (userWithRegister) {
+                await userRegisterUseCases.updateByUserId(data.userId, data)
+            }
+            else {
+                await userRegisterUseCases.create(data)
+            }
+            
+            sessions[data.registerId] = socket.id
+            
+            let acknowledgementData = {
+                ...data,
+                sessions
+            }
+
+            io.emit('user.register:ack', acknowledgementData)
+        })
     })
 }
 

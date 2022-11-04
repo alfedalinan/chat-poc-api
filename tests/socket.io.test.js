@@ -10,11 +10,11 @@ describe("socket.io", () => {
     })
 
     clientSocket.on('message.broadcast:delivered', (data) => {
-      console.log('unread items: ', data)
+      
     })
 
     clientSocket.on('user.register:ack', (data) =>{
-      console.log('ack data: ', data)
+      console.log(data)
     })
   });
 
@@ -22,13 +22,12 @@ describe("socket.io", () => {
     clientSocket.close();
   });
 
-  test('Testing socket "user.register:send"', (done) => {
+  test('user.register:send', (done) => {
     // clientSocket.emit('test', 'sample Data')
     // done()
     clientSocket.emit('user.register:send', {
       userId: 1,
-      username: 'alfed.alinan',
-      registerId: '12346-abcdefg'
+      registerId: '12346-abcdefx'
     })
     
     done()
