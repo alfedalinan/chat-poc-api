@@ -70,7 +70,6 @@ describe('Conversations E2E', () => {
         })
 
         const result = response.data.data.getConversationById
-        console.log(result)
         expect(result).toBeTruthy()
         expect(result.conversationMembers).toBeTruthy()
         expect(result.conversationMembers.length).toBeGreaterThanOrEqual(0)

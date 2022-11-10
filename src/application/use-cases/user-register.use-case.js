@@ -23,8 +23,16 @@ async function updateByUserId(userId, data) {
     return result.data
 }
 
+async function removeByUserId(userId) {
+    const result = await axios.delete(`${config.MS_USERS}/user-registers/user-id/${userId}`)
+                              .catch(error => formatUseCaseError(error))
+
+    return result
+}
+
 module.exports = {
     create,
     findOneByUserId,
-    updateByUserId
+    updateByUserId,
+    removeByUserId
 }
